@@ -3,41 +3,25 @@ package com.bin.david.smarttable;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.bin.david.form.core.SmartTable;
 import com.bin.david.form.data.column.Column;
-import com.bin.david.form.data.column.ColumnInfo;
 import com.bin.david.form.data.format.bg.BaseBackgroundFormat;
-import com.bin.david.form.data.format.draw.MultiLineDrawFormat;
-import com.bin.david.form.data.table.TableData;
-import com.bin.david.form.data.format.IFormat;
-import com.bin.david.form.data.format.count.ICountFormat;
-import com.bin.david.form.data.format.draw.BitmapDrawFormat;
-import com.bin.david.form.data.format.draw.ImageResDrawFormat;
 import com.bin.david.form.data.format.draw.TextImageDrawFormat;
-import com.bin.david.form.data.format.tip.MultiLineBubbleTip;
 import com.bin.david.form.data.format.title.TitleImageDrawFormat;
 import com.bin.david.form.data.style.FontStyle;
-import com.bin.david.form.listener.OnColumnClickListener;
-import com.bin.david.form.listener.OnColumnItemClickListener;
+import com.bin.david.form.data.table.TableData;
 import com.bin.david.form.utils.DensityUtils;
-import com.bin.david.smarttable.bean.ChildData;
+import com.bin.david.smarttable.bean.DevicePosition;
 import com.bin.david.smarttable.bean.TableStyle;
-import com.bin.david.smarttable.bean.TanBean;
-import com.bin.david.smarttable.bean.UserInfo;
 import com.bin.david.smarttable.view.BaseCheckDialog;
 import com.bin.david.smarttable.view.BaseDialog;
 import com.bin.david.smarttable.view.QuickChartDialog;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.daivd.chart.component.axis.BaseAxis;
 import com.daivd.chart.component.base.IAxis;
 import com.daivd.chart.component.base.IComponent;
@@ -51,181 +35,62 @@ import com.daivd.chart.provider.component.mark.BubbleMarkView;
 import com.daivd.chart.provider.component.point.Point;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
+public class MultParseModeActivity extends AppCompatActivity implements View.OnClickListener {
 
-public class MultParseModeActivity extends AppCompatActivity implements View.OnClickListener{
-
-    private SmartTable<UserInfo> table;
+    private SmartTable<DevicePosition> table;
     private BaseCheckDialog<TableStyle> chartDialog;
     private QuickChartDialog quickChartDialog;
-    private Map<String,Bitmap> map = new HashMap<>();
+    private Map<String, Bitmap> map = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
         quickChartDialog = new QuickChartDialog();
-        FontStyle.setDefaultTextSize(DensityUtils.sp2px(this,15)); //设置全局字体大小
-        table = (SmartTable<UserInfo>) findViewById(R.id.table);
-        final List<UserInfo> testData = new ArrayList<>();
-        Random random = new Random();
-        List<TanBean> tanBeans = TanBean.initDatas();
-        //测试 从其他地方获取url
-        int urlSize = tanBeans.size();
-        for(int i = 0;i <50; i++) {
-            UserInfo userData = new UserInfo("用户高中生侦探工藤新一，被称为日本警察的救世主，平成年代的福尔摩斯"+i, random.nextInt(70), System.currentTimeMillis()
-                    - random.nextInt(70)*3600*1000*24,true,new ChildData("测试"+i));
-            userData.setUrl(tanBeans.get(i%urlSize).getUrl());
-            testData.add(userData);
-        }
+        //FontStyle.setDefaultTextSize(DensityUtils.sp2px(this, 15)); //设置全局字体大小
+        table = (SmartTable<DevicePosition>) findViewById(R.id.table);
+        final List<DevicePosition> testData = new ArrayList<>();
+        DevicePosition item1 = new DevicePosition("消防供配电设施", "消防电源", "电源箱外观", "正常", "");
+        DevicePosition item2 = new DevicePosition("消防供配电设施", "消防电源", "主电源工作状态", "正常", "");
+        DevicePosition item3 = new DevicePosition("消防供配电设施", "消防电源", "备用电源工作状态", "正常", "");
+        DevicePosition item4 = new DevicePosition("消防供配电设施", "发电机", "发电机启动装置外观及工作状态", "正常", "");
+        DevicePosition item5 = new DevicePosition("消防供配电设施", "发电机", "发电机燃料储量、储油间环境", "正常", "");
+        DevicePosition item6 = new DevicePosition("火灾自动报警系统", "火灾报警控制器", "火灾报警控制器运行状况", "正常", "");
+        DevicePosition item7 = new DevicePosition("火灾自动报警系统", "火灾报警控制器", "火灾显示器运行状况", "正常", "");
+        DevicePosition item8 = new DevicePosition("火灾自动报警系统", "火灾报警控制器", "CRT图形显示器运行状况", "正常", "");
+        DevicePosition item9 = new DevicePosition("火灾自动报警系统", "火灾报警装置", "火灾报警装置外观", "正常", "");
+        DevicePosition item10 = new DevicePosition("火灾自动报警系统", "火灾报警装置", "远程监控装置外观", "正常", "");
+        testData.add(item1);
+        testData.add(item2);
+        testData.add(item3);
+        testData.add(item4);
+        testData.add(item5);
+        testData.add(item6);
+        testData.add(item7);
+        testData.add(item8);
+        testData.add(item9);
+        testData.add(item10);
 
-        final Column<String> nameColumn = new Column<>("姓名", "name");
-        nameColumn.setFixed(true);
-        nameColumn.setAutoCount(true);
-        nameColumn.setDrawFormat(new MultiLineDrawFormat<String>(this,100));
-        final Column<Integer> ageColumn = new Column<>("年龄", "age");
-        ageColumn.setFixed(true);
-        ageColumn.setAutoCount(true);
-        int imgSize = DensityUtils.dp2px(this,25);
-        final Column<String> avatarColumn = new Column<>("头像", "url", new BitmapDrawFormat<String>(imgSize,imgSize) {
-            @Override
-            protected Bitmap getBitmap(final String s, String value, int position) {
-                if(map.get(s)== null) {
-                    Glide.with(MultParseModeActivity.this).asBitmap().load(s)
-                            .apply(bitmapTransform(new CenterCrop())).into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
-                            map.put(s, bitmap);
-                            table.invalidate();
-                        }
-                    });
-                }
-                return map.get(s);
-            }
-        });
-        avatarColumn.setFixed(true);
-       Column < String > column4 = new Column<>("测试多重查询", "childData.child",new MultiLineDrawFormat<String>(this,100));
-        column4.setAutoCount(true);
-        final IFormat<Long> format =  new IFormat<Long>() {
-            @Override
-            public String format(Long aLong) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(aLong);
-                return calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH);
-            }
-        };
-        final Column<Long> timeColumn = new Column<>("时间", "time",format);
-        timeColumn.setCountFormat(new ICountFormat<Long, Long>() {
-            private long maxTime;
-            @Override
-            public void count(Long aLong) {
-                if(aLong > maxTime){
-                    maxTime = aLong;
-                }
-            }
-
-            @Override
-            public Long getCount() {
-                return maxTime;
-            }
-
-            @Override
-            public String getCountString() {
-                return format.format(maxTime);
-            }
-
-            @Override
-            public void clearCount() {
-                maxTime =0;
-            }
-        });
-        int size = DensityUtils.dp2px(this,15);
-        Column<Boolean> column5 = new Column<>("勾选1", "isCheck", new ImageResDrawFormat<Boolean>(size,size) {
-            @Override
-            protected Context getContext() {
-                return MultParseModeActivity.this;
-            }
-
-            @Override
-            protected int getResourceID(Boolean isCheck, String value, int position) {
-                if(isCheck){
-                    return R.mipmap.check;
-                }
-                return 0;
-            }
-        });
-        Column<Boolean> column6 = new Column<>("勾选2", "isCheck", new TextImageDrawFormat<Boolean>(size,size, TextImageDrawFormat.LEFT,10) {
-            @Override
-            protected Context getContext() {
-                return MultParseModeActivity.this;
-            }
-
-            @Override
-            protected int getResourceID(Boolean isCheck, String value, int position) {
-                if(isCheck){
-                    return R.mipmap.clock_fill;
-                }
-                return 0;
-            }
-        });
-        Column<Boolean> column7 = new Column<>("勾选3", "isCheck", new TextImageDrawFormat<Boolean>(size,size, TextImageDrawFormat.RIGHT,10) {
-            @Override
-            protected Context getContext() {
-                return MultParseModeActivity.this;
-            }
-
-            @Override
-            protected int getResourceID(Boolean isCheck, String value, int position) {
-                if(isCheck){
-                    return R.mipmap.activity_fill;
-                }
-                return 0;
-            }
-        });
-        Column<Boolean> column8 = new Column<>("勾选4", "isCheck", new TextImageDrawFormat<Boolean>(size,size, TextImageDrawFormat.TOP,10) {
-            @Override
-            protected Context getContext() {
-                return MultParseModeActivity.this;
-            }
-
-            @Override
-            protected int getResourceID(Boolean isCheck, String value, int position) {
-                if(isCheck){
-                    return R.mipmap.brush_fill;
-                }
-                return 0;
-            }
-        });
-        Column<Boolean> column9 = new Column<>("勾选5", "isCheck", new TextImageDrawFormat<Boolean>(size,size, TextImageDrawFormat.BOTTOM,10) {
-            @Override
-            protected Context getContext() {
-                return MultParseModeActivity.this;
-            }
-
-            @Override
-            protected int getResourceID(Boolean isCheck, String value, int position) {
-                if(isCheck){
-                    return R.mipmap.collection_fill;
-                }
-                return 0;
-            }
-        });
-        Column totalColumn1 = new Column("总项1",nameColumn,ageColumn);
-        Column totalColumn2 = new Column("总项2",nameColumn,ageColumn,timeColumn);
-        Column totalColumn = new Column("总项",nameColumn,totalColumn1,totalColumn2,timeColumn);
-
-        final TableData<UserInfo> tableData = new TableData<>("测试",testData,nameColumn,
-                avatarColumn,column4,column5,column6,column7,column8,column9,totalColumn,totalColumn1,totalColumn2,timeColumn);
-        tableData.setShowCount(true);
+        final Column<String> system = new Column<>("巡查项目", "system");
+        final Column<String> device = new Column<>("设备", "device");
+        final Column<String> position = new Column<>("设备位置", "position");
+        final Column<String> state = new Column<>("状态", "state");
+        final Column<String> remark = new Column<>("备注", "remark");
+        system.setAutoMerge(true);
+        device.setAutoMerge(true);
+        remark.setWidth(200);
+        int size = DensityUtils.dp2px(this, 15);
+        Column totalColumn1 = new Column("巡查内容(设备数)", device, position);
+        Column totalColumn2 = new Column("巡查情况", state, remark);
+        final TableData<DevicePosition> tableData = new TableData<>("建筑消防设施巡查记录汇总表", testData, system,
+                totalColumn1, totalColumn2);
         table.getConfig().setColumnTitleBackground(new BaseBackgroundFormat(getResources().getColor(R.color.windows_bg)));
         table.getConfig().setCountBackground(new BaseBackgroundFormat(getResources().getColor(R.color.windows_bg)));
-        tableData.setTitleDrawFormat(new TitleImageDrawFormat(size,size, TitleImageDrawFormat.RIGHT,10) {
+        tableData.setTitleDrawFormat(new TitleImageDrawFormat(size, size, TitleImageDrawFormat.RIGHT, 10) {
             @Override
             protected Context getContext() {
                 return MultParseModeActivity.this;
@@ -233,82 +98,47 @@ public class MultParseModeActivity extends AppCompatActivity implements View.OnC
 
             @Override
             protected int getResourceID(Column column) {
-                if(!column.isParent()){
-                    if(tableData.getSortColumn() == column){
+                if (!column.isParent()) {
+                    if (tableData.getSortColumn() == column) {
                         setDirection(TextImageDrawFormat.RIGHT);
-                        if(column.isReverseSort()){
+                        if (column.isReverseSort()) {
                             return R.mipmap.sort_up;
                         }
                         return R.mipmap.sort_down;
 
-                    }else{
+                    } else {
                         setDirection(TextImageDrawFormat.LEFT);
-                        if(column == nameColumn){
+                        if (column == state) {
                             return R.mipmap.name;
-                        }else if(column == ageColumn){
+                        } else if (column == remark) {
                             return R.mipmap.age;
-                        }else if(column == timeColumn){
-                            return R.mipmap.update;
                         }
                     }
                     return 0;
                 }
                 setDirection(TextImageDrawFormat.LEFT);
-                int level = tableData.getTableInfo().getMaxLevel()-column.getLevel();
-                if(level ==0){
+                int level = tableData.getTableInfo().getMaxLevel() - column.getLevel();
+                if (level == 0) {
                     return R.mipmap.level1;
-                }else if(level ==1){
+                } else if (level == 1) {
                     return R.mipmap.level2;
                 }
                 return 0;
             }
         });
-        ageColumn.setOnColumnItemClickListener(new OnColumnItemClickListener<Integer>() {
-            @Override
-            public void onClick(Column<Integer> column, String value, Integer integer, int position) {
-                Toast.makeText(MultParseModeActivity.this,"点击了"+value,Toast.LENGTH_SHORT).show();
-            }
+        state.setOnColumnItemClickListener((column, value, s, index)
+                -> {
+            Log.e("-----", value + " - " + s + " - " + index);
+            //testData.get(index).setState(value + "-");
+            //column.getDatas().get(index).
+            //table.notifyDataChanged();
         });
-        FontStyle fontStyle = new FontStyle();
-        fontStyle.setTextColor(getResources().getColor(android.R.color.white));
-        MultiLineBubbleTip<Column> tip = new MultiLineBubbleTip<Column>(this,R.mipmap.round_rect,R.mipmap.triangle,fontStyle) {
-            @Override
-            public boolean isShowTip(Column column, int position) {
-                if(column == nameColumn){
-                    return true;
-                }
-                return false;
-            }
-
-
-            @Override
-            public String[] format(Column column, int position) {
-                UserInfo data = testData.get(position);
-                String[] strings = {"批注","姓名："+data.getName().substring(0,10),data.getName().substring(10,20),"年龄："+data.getAge()};
-                return strings;
-            }
-        };
-        tip.setColorFilter(Color.parseColor("#FA8072"));
-        tip.setAlpha(0.8f);
-        table.getProvider().setTip(tip);
-
-        table.setOnColumnClickListener(new OnColumnClickListener() {
-            @Override
-            public void onClick(ColumnInfo columnInfo) {
-                if(!columnInfo.column.isParent()) {
-
-                    if(columnInfo.column == ageColumn){
-                        showChartDialog(tableData.getTableName(),nameColumn.getDatas(),ageColumn.getDatas());
-                    }else{
-                        table.setSortColumn(columnInfo.column, !columnInfo.column.isReverseSort());
-                    }
-                }
-                Toast.makeText(MultParseModeActivity.this,"点击了"+columnInfo.column.getColumnName(),Toast.LENGTH_SHORT).show();
-            }
-        });
-        table.getConfig().setTableTitleStyle(new FontStyle(this,15,getResources().getColor(R.color.arc1)));
+        //table.setZoom(true,1.5f,0.2f);
+        //tableData.setShowCount(true);
+        table.getConfig().setShowXSequence(false);
+        table.getConfig().setShowYSequence(false);
+        table.getConfig().setShowTableTitle(false);
         table.setTableData(tableData);
-
     }
 
     @Override
@@ -335,7 +165,7 @@ public class MultParseModeActivity extends AppCompatActivity implements View.OnC
                             fixedXAxis(item);
                             break;
                         case FIXED_Y_AXIS:
-                           fixedYAxis(item);
+                            fixedYAxis(item);
                             break;
                         case FIXED_FIRST_COLUMN:
                             fixedFirstColumn(item);
@@ -368,9 +198,9 @@ public class MultParseModeActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onItemClick(String s, int position) {
                 if (position == 0) {
-                    table.setZoom(true,3,1);
+                    table.setZoom(true, 3, 1);
                 } else if (position == 1) {
-                    table.setZoom(false,3,1);
+                    table.setZoom(false, 3, 1);
                 }
                 table.invalidate();
             }
@@ -384,11 +214,11 @@ public class MultParseModeActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onItemClick(String s, int position) {
                 if (position == 0) {
-                   table.getConfig().setFixedXSequence(true);
+                    table.getConfig().setFixedXSequence(true);
                 } else if (position == 1) {
                     table.getConfig().setFixedXSequence(false);
                 }
-               table.invalidate();
+                table.invalidate();
             }
         });
     }
@@ -408,6 +238,7 @@ public class MultParseModeActivity extends AppCompatActivity implements View.OnC
             }
         });
     }
+
     private void fixedTitle(TableStyle c) {
 
         quickChartDialog.showDialog(this, c, new String[]{"固定", "不固定"}, new QuickChartDialog.OnCheckChangeAdapter() {
@@ -439,6 +270,7 @@ public class MultParseModeActivity extends AppCompatActivity implements View.OnC
             }
         });
     }
+
     private void fixedCountRow(TableStyle c) {
 
         quickChartDialog.showDialog(this, c, new String[]{"固定", "不固定"}, new QuickChartDialog.OnCheckChangeAdapter() {
@@ -457,35 +289,36 @@ public class MultParseModeActivity extends AppCompatActivity implements View.OnC
 
     /**
      * 测试是否可以兼容之前smartChart
+     *
      * @param tableName
      * @param chartYDataList
      * @param list
      */
-    private void showChartDialog(String tableName,List<String> chartYDataList,List<Integer> list ){
-        View chartView = View.inflate(this,R.layout.dialog_chart,null);
+    private void showChartDialog(String tableName, List<String> chartYDataList, List<Integer> list) {
+        View chartView = View.inflate(this, R.layout.dialog_chart, null);
         LineChart lineChart = (LineChart) chartView.findViewById(R.id.lineChart);
         lineChart.setLineModel(LineChart.CURVE_MODEL);
         Resources res = getResources();
-        com.daivd.chart.data.style.FontStyle.setDefaultTextSpSize(this,12);
+        com.daivd.chart.data.style.FontStyle.setDefaultTextSpSize(this, 12);
         List<LineData> ColumnDatas = new ArrayList<>();
         ArrayList<Double> tempList1 = new ArrayList<>();
         ArrayList<String> ydataList = new ArrayList<>();
-        for(int i = 0;i <30;i++){
+        for (int i = 0; i < 30; i++) {
             String value = chartYDataList.get(i);
             ydataList.add(value);
         }
-        for(int i = 0;i <30;i++){
+        for (int i = 0; i < 30; i++) {
             int value = list.get(i);
             tempList1.add(Double.valueOf(value));
         }
-        LineData columnData1 = new LineData(tableName,"", IAxis.AxisDirection.LEFT,getResources().getColor(R.color.arc1),tempList1);
+        LineData columnData1 = new LineData(tableName, "", IAxis.AxisDirection.LEFT, getResources().getColor(R.color.arc1), tempList1);
         ColumnDatas.add(columnData1);
-        ChartData<LineData> chartData2 = new ChartData<>("Area Chart",ydataList,ColumnDatas);
+        ChartData<LineData> chartData2 = new ChartData<>("Area Chart", ydataList, ColumnDatas);
         lineChart.getChartTitle().setDirection(IComponent.TOP);
         lineChart.getLegend().setDirection(IComponent.BOTTOM);
         lineChart.setLineModel(LineChart.CURVE_MODEL);
-        BaseAxis verticalAxis =  lineChart.getLeftVerticalAxis();
-        BaseAxis horizontalAxis=  lineChart.getHorizontalAxis();
+        BaseAxis verticalAxis = lineChart.getLeftVerticalAxis();
+        BaseAxis horizontalAxis = lineChart.getHorizontalAxis();
         //设置竖轴方向
         verticalAxis.setAxisDirection(IAxis.AxisDirection.LEFT);
         //设置网格
@@ -494,10 +327,10 @@ public class MultParseModeActivity extends AppCompatActivity implements View.OnC
         horizontalAxis.setAxisDirection(IAxis.AxisDirection.BOTTOM);
         horizontalAxis.setDrawGrid(true);
         //设置线条样式
-        verticalAxis.getAxisStyle().setWidth(this,1);
-        DashPathEffect effects = new DashPathEffect(new float[] { 1, 2, 4, 8}, 1);
-        verticalAxis.getGridStyle().setWidth(this,1).setColor(res.getColor(R.color.arc_text)).setEffect(effects);
-        horizontalAxis.getGridStyle().setWidth(this,1).setColor(res.getColor(R.color.arc_text)).setEffect(effects);
+        verticalAxis.getAxisStyle().setWidth(this, 1);
+        DashPathEffect effects = new DashPathEffect(new float[]{1, 2, 4, 8}, 1);
+        verticalAxis.getGridStyle().setWidth(this, 1).setColor(res.getColor(R.color.arc_text)).setEffect(effects);
+        horizontalAxis.getGridStyle().setWidth(this, 1).setColor(res.getColor(R.color.arc_text)).setEffect(effects);
         lineChart.setZoom(true);
         //开启十字架
         lineChart.getProvider().setOpenCross(true);
@@ -513,10 +346,10 @@ public class MultParseModeActivity extends AppCompatActivity implements View.OnC
         //设置标题样式
         com.daivd.chart.data.style.FontStyle fontStyle = lineChart.getChartTitle().getFontStyle();
         fontStyle.setTextColor(res.getColor(R.color.arc_temp));
-        fontStyle.setTextSpSize(this,15);
+        fontStyle.setTextSpSize(this, 15);
         LevelLine levelLine = new LevelLine(30);
-        DashPathEffect effects2 = new DashPathEffect(new float[] { 1, 2,2,4}, 1);
-        levelLine.getLineStyle().setWidth(this,1).setColor(res.getColor(R.color.arc23)).setEffect(effects);
+        DashPathEffect effects2 = new DashPathEffect(new float[]{1, 2, 2, 4}, 1);
+        levelLine.getLineStyle().setWidth(this, 1).setColor(res.getColor(R.color.arc23)).setEffect(effects);
         levelLine.getLineStyle().setEffect(effects2);
         lineChart.getProvider().addLevelLine(levelLine);
         Point legendPoint = (Point) lineChart.getLegend().getPoint();
@@ -526,7 +359,7 @@ public class MultParseModeActivity extends AppCompatActivity implements View.OnC
         lineChart.getHorizontalAxis().setRotateAngle(90);
         lineChart.setChartData(chartData2);
         lineChart.startChartAnim(400);
-        BaseDialog dialog = new  BaseDialog.Builder(this).setFillWidth(true).setContentView(chartView).create();
+        BaseDialog dialog = new BaseDialog.Builder(this).setFillWidth(true).setContentView(chartView).create();
         dialog.show();
     }
 
